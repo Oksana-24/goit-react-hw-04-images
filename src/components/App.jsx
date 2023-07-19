@@ -9,10 +9,11 @@ import * as Api from './services/api';
 
 import Notiflix from 'notiflix';
 
+const perPage = 12;
+
 export const App = () => {
   const [q, setQ] = useState('');
   const [page, setPage] = useState(1);
-  const [perpage, setPerpage] = useState(12);
   const [images, setImages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -23,12 +24,12 @@ export const App = () => {
       return;
     }
     setIsLoading(true);
-    getImage(q, page, perpage);
-  }, [q, page, perpage]);
+    getImage(q, page, perPage);
+  }, [q, page]);
 
-  const getImage = async (name, page, perpage) => {
+  const getImage = async (name, page, perPage) => {
     try {
-      const images = await Api.getImages(name, page, perpage);
+      const images = await Api.getImages(name, page, perPage);
       if (!images.length) {
         Notiflix.Notify.failure(
           `Sorry, there are no images matching your search query "${name}". Please try again.`
